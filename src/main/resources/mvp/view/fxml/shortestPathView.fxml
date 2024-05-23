@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<TableView xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:id="table"
+           fx:controller="mvp.view.viewcontrollers.ShortestPathController"
+           prefHeight="341.0" prefWidth="499.0">
+<columns>
+    <TableColumn fx:id="stationsCol" prefWidth="242.0" text="Stations" />
+    <TableColumn fx:id="stationsLignes" prefWidth="239.0" text="Lignes" />
+</columns>
+</TableView>

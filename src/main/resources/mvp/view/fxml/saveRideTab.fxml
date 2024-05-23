@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Tab xmlns="http://javafx.com/javafx"
+     xmlns:fx="http://javafx.com/fxml"
+     fx:id="savedRidesTab"
+     text="Saved Rides"
+     fx:controller="mvp.view.viewcontrollers.SaveTabController">
+<content>
+    <AnchorPane
+                minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <children>
+            <VBox fx:id="favoriteLayout" prefHeight="233.0" prefWidth="497.0">
+                <children>
+                    <TableView fx:id="favRidesTable" prefHeight="215.0" prefWidth="315.0">
+                        <columns>
+                            <TableColumn fx:id="favRideOptionsCol" prefWidth="70.0" />
+                            <TableColumn fx:id="favRideNameCol" prefWidth="104.0" text="Name" />
+                            <TableColumn fx:id="favRideOrgCol" prefWidth="163.0" text="Origin" />
+                            <TableColumn fx:id="favRideDstCol" prefWidth="166.0" text="Destination" />
+                        </columns>
+                    </TableView>
+                    <HBox alignment="CENTER" prefHeight="45.0" prefWidth="497.0" spacing="10.0">
+                        <children>
+                            <Button fx:id="addRideRow" mnemonicParsing="false" text="ADD RIDE" />
+                            <Button fx:id="saveFavoriteRideBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="SAVE CHANGES" />
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+        </children>
+    </AnchorPane>
+</content>
+</Tab>

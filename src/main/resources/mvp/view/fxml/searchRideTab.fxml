@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import org.controlsfx.control.SearchableComboBox?>
+<?import javafx.geometry.Insets?>
+<AnchorPane fx:controller="mvp.view.viewcontrollers.SearchTabController" fx:id="searchRideTab" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox fx:id="searchLayout" prefHeight="233.0" prefWidth="497.0">
+            <children>
+                <StackPane prefHeight="87.0" prefWidth="386.0">
+                    <children>
+                        <ImageView fx:id="logoStib" fitHeight="87.0" fitWidth="315.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                </StackPane>
+                <Label alignment="CENTER" prefHeight="19.0" prefWidth="506.0" text="Origine:" />
+                <StackPane prefHeight="39.0" prefWidth="317.0">
+                    <children>
+                        <SearchableComboBox fx:id="choiceOrigin" maxHeight="10.0" maxWidth="150.0" prefHeight="19.0" prefWidth="150.0" StackPane.alignment="CENTER">
+                            <StackPane.margin>
+                                <Insets />
+                            </StackPane.margin>
+                        </SearchableComboBox>
+                    </children>
+                </StackPane>
+                <Label alignment="CENTER" prefHeight="18.0" prefWidth="507.0" text="Destination:" />
+                <StackPane prefHeight="47.0" prefWidth="315.0">
+                    <children>
+                        <SearchableComboBox fx:id="choiceDestination" maxHeight="10.0" maxWidth="150.0" StackPane.alignment="CENTER" />
+                    </children>
+                </StackPane>
+                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="315.0" spacing="20.0">
+                    <children>
+                        <Button fx:id="searchBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Search" />
+                        <Button fx:id="saveRideButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="68.0" text="Save" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
