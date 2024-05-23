@@ -119,12 +119,29 @@ public class Presentation implements Observer {
                     3,
                     Colors.ERROR.getColor()
             );
+        } else if (containsOrgDst(dto)) {
+            isValid = false;
+            mainViewController.launchUpdateMessage(
+                    Errors.FAVORITES_TABLE_UK_VIOLATION.getErrorText() + " (" + dto.getOrigin() + ", " + dto.getDestination() + ")",
+                    3,
+                    Colors.ERROR.getColor()
+            );
         }
         return isValid;
     }
 
+    public boolean containsOrgDst(FavoritesDto dto) {
+        List<FavoritesDto> allDto = model.getAllFavoriteRides();
+        for (FavoritesDto dt : allDto) {
+            if (dt.getDestination().equals(dto.getDestination())
+            && dt.getOrigin().equals(dto.getOrigin())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean validateRows(List<FavoriteTableRow> rowList) {
-        boolean valid = true;
         for (FavoriteTableRow row : rowList) {
             String name = row.getName().getText();
             StationsDto org = row.getOrg().getValue();
@@ -133,11 +150,10 @@ public class Presentation implements Observer {
             boolean isValid = validateFavDto(dto);
 
             if (!isValid) {
-                valid = false;
-                break;
+                return false;
             }
         }
-        return valid;
+        return true;
     }
 
     public void searchRidesTabSearcher() {
@@ -231,8 +247,8 @@ public class Presentation implements Observer {
 
     public void saveFavRidesChanges() {
         List<FavoriteTableRow> rowsList = saveTab.getSavedRidesList();
-        validateRows(rowsList);
         boolean valid = validateRows(rowsList);
+        System.out.println(valid);
         if (valid) {
             List<FavoritesDto> favDtoList = convertRowsToDto(rowsList);
             model.saveFavRides(favDtoList);
