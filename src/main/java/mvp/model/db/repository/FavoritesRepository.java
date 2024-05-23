@@ -1,6 +1,4 @@
 package mvp.model.db.repository;
-import mvp.exceptions.model.NullDestinationStation;
-import mvp.exceptions.model.NullOriginStation;
 import mvp.model.db.dao.FavoritesDao;
 import mvp.model.db.dto.FavoritesDto;
 import mvp.exceptions.database.FavoritesTableUKViolation;

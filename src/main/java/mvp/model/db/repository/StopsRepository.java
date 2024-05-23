@@ -1,6 +1,4 @@
 package mvp.model.db.repository;
-import mvp.exceptions.arguments.NullStopsDto;
-import mvp.exceptions.database.StopsTablePKViolation;
 import mvp.model.db.tablepk.StopsPK;
 import mvp.model.db.dao.StopsDao;
 import mvp.model.db.dto.StopsDto;
@@ -13,17 +11,18 @@ public class StopsRepository implements Repository<StopsPK, StopsDto> {
         dao = new StopsDao();
     }
 
+    public StopsRepository(StopsDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public void add(StopsDto item) throws Exception {
-        if (item == null) {
-            throw new NullStopsDto("STOPSREPOSITORY : ADD : NULL STOPSDTO");
-        }
         StopsPK pk = new StopsPK(item.getIdLine(), item.getIdStation());
         StopsDto dto = dao.select(pk);
-        if (contains(pk)) {
-            dao.update(dto);
+        if (dto == null) {
+            dao.insert(item);
         } else {
-            dao.insert(dto);
+            dao.update(item);
         }
     }
 
@@ -33,7 +32,7 @@ public class StopsRepository implements Repository<StopsPK, StopsDto> {
     }
 
     @Override
-    public StopsDto get(StopsPK key) throws Exception {
+    public StopsDto get(StopsPK key) {
         return dao.select(key);
     }
 
@@ -43,7 +42,7 @@ public class StopsRepository implements Repository<StopsPK, StopsDto> {
     }
 
     @Override
-    public boolean contains(StopsPK key) throws Exception {
+    public boolean contains(StopsPK key) {
         StopsDto dto = get(key);
         return dto != null;
     }

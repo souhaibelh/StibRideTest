@@ -3,10 +3,10 @@ import mvp.exceptions.database.FavoritesTableUKViolation;
 import mvp.model.db.repository.FavoritesRepository;
 import mvp.model.db.repository.StationsRepository;
 import mvp.model.db.repository.StopsRepository;
-import mvp.util.ModelEvent;
-import mvp.util.ModelUpdate;
-import mvp.util.Observable;
-import mvp.util.Observer;
+import mvp.model.util.ModelEvent;
+import mvp.model.util.ModelUpdate;
+import mvp.model.util.Observable;
+import mvp.model.util.Observer;
 import mvp.model.db.dto.FavoritesDto;
 import mvp.model.db.dto.StationsDto;
 import mvp.model.db.dto.StopsDto;
@@ -45,16 +45,28 @@ public class Model implements Observable {
         return favRepository.getAll();
     }
 
+    /**
+     * Adds observer to watch for model updates
+     * @param observer observer of model
+     */
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * Removes observer so it stops watching our model
+     * @param observer observer to remove
+     */
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * Notifies all observers of a ModelUpdate
+     * @param update the update that we wish to notify to our observers
+     */
     @Override
     public void notifyObservers(ModelUpdate update) {
         observers.forEach((o) -> o.update(update));

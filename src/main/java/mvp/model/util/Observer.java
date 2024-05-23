@@ -1,4 +1,4 @@
-package mvp.util;
+package mvp.model.util;
 
 public interface Observer {
     /**

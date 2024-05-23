@@ -11,10 +11,18 @@ import java.util.List;
 public class StopsDao implements Dao<StopsPK, StopsDto> {
     private final Connection connection;
 
+    /**
+     * Sets the connection to be the single instance we hold in DBManager
+     */
     public StopsDao() {
         connection = DBManager.getInstance().getConnection();
     }
 
+    /**
+     * We give it an id station, and it returns the list of all StopsDto in which our stationId is involved
+     * @param idStation the station we want to get all the stops involved
+     * @return list containing all the stops in which the station with the id passed in parameters is involved
+     */
     public List<StopsDto> selectByStation(Integer idStation) {
         String query = "SELECT id_line, id_station, id_order FROM STOPS WHERE id_station = ?";
         List<StopsDto> stops = new ArrayList<>();
@@ -36,6 +44,12 @@ public class StopsDao implements Dao<StopsPK, StopsDto> {
         return stops;
     }
 
+    /**
+     * Selects a stops dto from the STOPS table with the idLine and idOrder passed in parameters
+     * @param idLine id line
+     * @param idOrder id order
+     * @return StopsDto involved in it
+     */
     public StopsDto selectByLineOrder(Integer idLine, Integer idOrder) {
         String query = "SELECT id_line, id_station, id_order FROM STOPS WHERE id_line = ? AND id_order = ?";
         StopsDto stopsDto = null;
@@ -59,19 +73,24 @@ public class StopsDao implements Dao<StopsPK, StopsDto> {
 
     @Override
     public void insert(StopsDto item) {
-
+        // Nothing here
     }
 
     @Override
     public void delete(StopsPK key) {
-
+        // Nothing here
     }
 
     @Override
     public void update(StopsDto item) {
-
+        // Nothing here
     }
 
+    /**
+     * Selects a Stops dto from the STOPS table with the primary key given in parameters
+     * @param primaryKey the primary key of the Stop Dto
+     * @return the Stops dto with the primary key given as parameter
+     */
     @Override
     public StopsDto select(StopsPK primaryKey) {
         String query = "SELECT id_line, id_station, id_order FROM STOPS WHERE id_line = ? AND id_station = ?";
@@ -92,6 +111,10 @@ public class StopsDao implements Dao<StopsPK, StopsDto> {
         return stopsDto;
     }
 
+    /**
+     * Method that returns a list containing all the stops dto in the STOPS table
+     * @return list of stops dto
+     */
     @Override
     public List<StopsDto> selectAll() {
         List<StopsDto> allStops = new ArrayList<>();

@@ -2,6 +2,9 @@ package mvp.model.db.tablepk;
 
 import java.util.Objects;
 
+/**
+ * Class defining the primary key of the Stations table
+ */
 public class StationsPK implements Key<StationsPK> {
     private final Integer id_station;
 

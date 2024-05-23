@@ -1,4 +1,4 @@
-package mvp.util;
+package mvp.model.util;
 
 /**
  * Class that represents the events that model can use to contact with presenter.

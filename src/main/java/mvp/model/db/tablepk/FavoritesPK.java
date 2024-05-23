@@ -2,6 +2,9 @@ package mvp.model.db.tablepk;
 
 import java.util.Objects;
 
+/**
+ * Defines a primary key for the Favorites Table
+ */
 public class FavoritesPK implements Key<FavoritesPK> {
     private Integer id;
 

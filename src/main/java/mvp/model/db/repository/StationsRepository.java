@@ -1,9 +1,9 @@
 package mvp.model.db.repository;
-import mvp.exceptions.arguments.NullStationDto;
-import mvp.exceptions.database.StationsTablePKViolation;
 import mvp.model.db.dao.StationsDao;
 import mvp.model.db.tablepk.StationsPK;
 import mvp.model.db.dto.StationsDto;
+import org.eclipse.aether.RepositoryException;
+
 import java.util.List;
 
 public class StationsRepository implements Repository<StationsPK, StationsDto> {
@@ -13,17 +13,20 @@ public class StationsRepository implements Repository<StationsPK, StationsDto> {
         dao = new StationsDao();
     }
 
+    public StationsRepository(StationsDao dao) {
+        this.dao = dao;
+    }
+
     @Override
     public void add(StationsDto item) throws Exception {
-        if (item == null) {
-            throw new NullStationDto("STATIONSREPOSITORY : ADD : NULL STATIONSDTO ITEM");
+        if (item == null || item.getIdStation() == null) {
+            throw new RepositoryException("StationsDto null OR key of StationsDto null");
         }
-        StationsPK key = new StationsPK(item.getIdStation());
         StationsDto dto = dao.select(new StationsPK(item.getIdStation()));
-        if (contains(key)) {
-            dao.update(dto);
+        if (dto == null) {
+            dao.insert(item);
         } else {
-            dao.insert(dto);
+            dao.update(item);
         }
     }
 
@@ -43,7 +46,10 @@ public class StationsRepository implements Repository<StationsPK, StationsDto> {
     }
 
     @Override
-    public boolean contains(StationsPK key) {
+    public boolean contains(StationsPK key) throws RepositoryException {
+        if (key == null || key.getIdStation() == null) {
+            throw new RepositoryException("StationsPK is null");
+        }
         StationsDto dto = get(key);
         return dto != null;
     }

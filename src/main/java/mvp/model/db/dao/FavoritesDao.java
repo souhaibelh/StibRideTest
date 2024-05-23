@@ -1,11 +1,10 @@
 package mvp.model.db.dao;
-import mvp.exceptions.model.NullDestinationStation;
-import mvp.exceptions.model.NullOriginStation;
 import mvp.model.db.DBManager;
 import mvp.model.db.dto.FavoritesDto;
 import mvp.exceptions.database.FavoritesTableUKViolation;
 import mvp.model.db.dto.StationsDto;
 import mvp.model.db.tablepk.FavoritesPK;
+import org.eclipse.aether.RepositoryException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +12,18 @@ import java.util.List;
 public class FavoritesDao implements Dao<FavoritesPK, FavoritesDto> {
     private final Connection connection;
 
+    /**
+     * Sets the connection to the database to be the only connection
+     */
     public FavoritesDao() {
         connection = DBManager.getInstance().getConnection();
     }
 
+    /**
+     * Selects a FavoriteDto from the table FAVORITES
+     * @param favPK the key of the FavoriteDto we want to get
+     * @return the Dto we got from the database
+     */
     @Override
     public FavoritesDto select(FavoritesPK favPK) {
         String query = "SELECT f.name, f.id_origin, f.id_destination, origin.name, destination.name, f.id FROM FAVORITES f" +
@@ -43,6 +50,11 @@ public class FavoritesDao implements Dao<FavoritesPK, FavoritesDto> {
         return favDto;
     }
 
+    /**
+     * Method that will insert a dto in the FAVORITES table
+     * @param dto the dto to add
+     * @throws FavoritesTableUKViolation if there is a dto already in the table with the same origin and station
+     */
     @Override
     public void insert(FavoritesDto dto) throws FavoritesTableUKViolation {
         String query = "INSERT INTO FAVORITES(name, id_origin, id_destination) VALUES(?, ?, ?)";
@@ -66,6 +78,10 @@ public class FavoritesDao implements Dao<FavoritesPK, FavoritesDto> {
         }
     }
 
+    /**
+     * Method that deletes in the FAVORITES table the row with matching primary key as the one passed in parameters
+     * @param key primary key of the FavoritesDto to delete
+     */
     @Override
     public void delete(FavoritesPK key) {
         String query = "DELETE FROM FAVORITES WHERE id = ?";
@@ -80,6 +96,10 @@ public class FavoritesDao implements Dao<FavoritesPK, FavoritesDto> {
         }
     }
 
+    /**
+     * Method that updates a given favoritesDto in the table FAVORITES
+     * @param item item that we want to update in the database
+     */
     @Override
     public void update(FavoritesDto item) {
         String query = "UPDATE FAVORITES SET name = ?, id_origin = ?, id_destination = ? WHERE id = ?";
@@ -97,6 +117,10 @@ public class FavoritesDao implements Dao<FavoritesPK, FavoritesDto> {
         }
     }
 
+    /**
+     * Method that returns a list of all the favorite rows in the FAVORITES table as a list of FavoritesDto
+     * @return list of Favorites
+     */
     @Override
     public List<FavoritesDto> selectAll() {
         List<FavoritesDto> list = new ArrayList<>();
@@ -127,6 +151,13 @@ public class FavoritesDao implements Dao<FavoritesPK, FavoritesDto> {
         return list;
     }
 
+    /**
+     * Method that takes in a list of FavoritesDto and attempts to update them in the database
+     * @param updateList the list of dto's to update in the database
+     * @return an integer specifying how many elements where updated
+     * @throws FavoritesTableUKViolation when it attempts to update an element in the list, but the element's station
+     * and origin (changed ones) are already set in the database in another row.
+     */
     public int updateAll(List<FavoritesDto> updateList) throws FavoritesTableUKViolation {
         String query = "UPDATE FAVORITES SET name = ?, id_origin = ?, id_destination = ? WHERE id = ?";
         int count = 0;
@@ -166,6 +197,13 @@ public class FavoritesDao implements Dao<FavoritesPK, FavoritesDto> {
         return count;
     }
 
+    /**
+     * Method that takes in a list of FavoritesDto and adds it to the FAVORITES table
+     * @param addList the list to add
+     * @return an integer counting the total elements added
+     * @throws FavoritesTableUKViolation when it attempts to add an element to the list, but the element's station
+     * and origin are already set in the database in another row.
+     */
     public int insertAll(List<FavoritesDto> addList) throws FavoritesTableUKViolation {
         String query = "INSERT INTO FAVORITES(name, id_origin, id_destination) VALUES (?,?,?)";
         int count = 0;

@@ -1,4 +1,6 @@
 package config;
+import mvp.exceptions.database.RepositoryException;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -8,7 +10,7 @@ import java.util.Properties;
 public class ConfigManager {
     private final Properties prop;
 
-    private ConfigManager() {
+    private ConfigManager() throws RepositoryException {
         prop = new Properties();
         load();
     }
@@ -16,17 +18,16 @@ public class ConfigManager {
     /**
      * Method that loads the property file in the prop attribute of the class
      */
-    private void load() {
+    private void load() throws RepositoryException {
         File properties = new File(ConfigManager.class.getClassLoader().getResource("config/config.properties").getFile());
         try {
             InputStream is = new FileInputStream(properties);
             prop.load(is);
             is.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Couldn't find config file: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("Couldn't load properties: " + e.getMessage());
+            throw new RepositoryException("Couldn't read properties file");
         }
+
     }
 
     /**

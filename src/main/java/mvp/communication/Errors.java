@@ -1,5 +1,8 @@
 package mvp.communication;
 
+/**
+ * Stores all the possible error messages to display to the user to inform about an error
+ */
 public enum Errors {
     NO_NAME_TEXT("Please input a rider name"),
     INVALID_NAME_TEXT("Invalid rider name, valid examples: 123r, 456RidEr789, rider..."),
