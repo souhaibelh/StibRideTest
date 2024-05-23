@@ -133,8 +133,8 @@ public class Presentation implements Observer {
     public boolean containsOrgDst(FavoritesDto dto) {
         List<FavoritesDto> allDto = model.getAllFavoriteRides();
         for (FavoritesDto dt : allDto) {
-            if (dt.getDestination().equals(dto.getDestination())
-            && dt.getOrigin().equals(dto.getOrigin())) {
+            if ((dt.getDestination().equals(dto.getDestination())
+            && dt.getOrigin().equals(dto.getOrigin())) && !dto.equals(dt)) {
                 return true;
             }
         }
@@ -247,8 +247,8 @@ public class Presentation implements Observer {
 
     public void saveFavRidesChanges() {
         List<FavoriteTableRow> rowsList = saveTab.getSavedRidesList();
+        rowsList.forEach((e) -> System.out.println(e.getName().getText()));
         boolean valid = validateRows(rowsList);
-        System.out.println(valid);
         if (valid) {
             List<FavoritesDto> favDtoList = convertRowsToDto(rowsList);
             model.saveFavRides(favDtoList);
