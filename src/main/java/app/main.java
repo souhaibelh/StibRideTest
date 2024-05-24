@@ -6,8 +6,6 @@ import mvp.presentation.Presentation;
 import mvp.view.InputView;
 import mvp.view.MainView;
 
-// --module-path "\path\to\javafx-sdk-17\lib" --add-modules javafx.controls,javafx.fxml
-
 public class main extends Application {
     public static void main(String[] args) throws Exception {
         Application.launch(args);
