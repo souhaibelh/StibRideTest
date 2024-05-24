@@ -1,5 +1,6 @@
 package mvp.view.viewcontrollers;
 import javafx.scene.paint.Color;
+import mvp.presentation.Presentation;
 import mvp.view.UpdateMessageHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +15,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable  {
+    @FXML
+    private MenuItem nlStations;
+
     @FXML
     private SearchTabController searchTabController;
 
@@ -49,11 +53,18 @@ public class MainViewController implements Initializable  {
 
     private UpdateMessageHandler updateMessageHandler;
 
+    private boolean inNL;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        inNL = false;
         updateMessageHandler = new UpdateMessageHandler(updateMessage);
         initImages();
         initBottomInformation();
+    }
+
+    public void addNlStationsHandler(Presentation p) {
+        nlStations.setOnAction((e) -> p.setNlStations());
     }
 
     public SearchTabController getSearchTabController() {
@@ -108,5 +119,13 @@ public class MainViewController implements Initializable  {
     public void showBottomInformationBar() {
         searchFinalised.setVisible(true);
         numberOfStationsContainer.setVisible(true);
+    }
+
+    public void setNlBoolean(boolean b) {
+        inNL = b;
+    }
+
+    public boolean getInNl() {
+        return inNL;
     }
 }

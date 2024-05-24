@@ -37,6 +37,7 @@ public class Presentation implements Observer {
         shortestPathController = mainView.getShortestPathController();
         saveTab.addButtonsHandler(this);
         searchTab.addButtonsHandler(this);
+        mainViewController.addNlStationsHandler(this);
         init();
     }
 
@@ -68,11 +69,19 @@ public class Presentation implements Observer {
 
             } case SAVE_RIDE_SUCCESS -> {
                 mainViewController.launchUpdateMessage(Success.RIDE_SAVED_SUCCESS.getSuccessText(), 3, Colors.SUCCESS.getColor());
-                refreshFavorites();
+                if (mainViewController.getInNl()) {
+                    refreshNlFavorites();
+                } else {
+                    refreshFavorites();
+                }
 
             } case DELETE_FAVORITE_RIDE_SUCCESS -> {
                 mainViewController.launchUpdateMessage(Success.RIDE_DELETED_SUCCESS.getSuccessText(), 3, Colors.SUCCESS.getColor());
-                refreshFavorites();
+                if (mainViewController.getInNl()) {
+                    refreshNlFavorites();
+                } else {
+                    refreshFavorites();
+                }
 
             } case SAVE_FAVORITE_CHANGES_SUCCESS -> {
                 mainViewController.launchUpdateMessage(Success.CHANGES_SAVED_SUCCESS.getSuccessText(), 3, Colors.SUCCESS.getColor());
@@ -185,7 +194,10 @@ public class Presentation implements Observer {
         } else if (destination == null) {
             mainViewController.launchUpdateMessage(Errors.NULL_DESTINATION_STATION.getErrorText(), 5, Color.RED);
         } else {
-            model.shortestPath(searchTab.getOrigin(), searchTab.getDestination());
+            model.shortestPath(origin, destination);
+            if (mainViewController.getInNl()) {
+                setNlStations();
+            }
         }
     }
 
@@ -243,6 +255,9 @@ public class Presentation implements Observer {
         boolean valid = validateFavDto(f);
         if (valid) {
             model.shortestPath(f.getOrigin(), f.getDestination());
+            if (mainViewController.getInNl()) {
+                setNlStations();
+            }
         }
     }
 
@@ -279,7 +294,29 @@ public class Presentation implements Observer {
             favTabRows.add(favoriteRow);
         });
         saveTab.setFavTable(favTabRows);
-        shortestPathController.clearTable();
+    }
+
+    public void refreshNlFavorites() {
+        saveTab.clearFavRidesTable();
+        List<FavoritesDto> favorites = model.getAllFavoriteRides();
+        List<StationsDto> allStations = model.getAllNlStations();
+        List<FavoriteTableRow> favTabRows = new ArrayList<>();
+        favorites.forEach((f) -> {
+            FavoriteTableRow favoriteRow = new FavoriteTableRow(f, allStations);
+            favoriteRow.getDeleteButton().setOnAction((e) -> {
+                deleteFavoriteRide(f);
+            });
+            favoriteRow.getRunButton().setOnAction((e) -> {
+                FavoritesDto updatedDto = new FavoritesDto(
+                        favoriteRow.getName().getText(),
+                        favoriteRow.getOrg().getValue(),
+                        favoriteRow.getDst().getValue()
+                );
+                searchRidesTabSearcher(updatedDto);
+            });
+            favTabRows.add(favoriteRow);
+        });
+        saveTab.setFavTable(favTabRows);
     }
 
     /**
@@ -292,7 +329,11 @@ public class Presentation implements Observer {
         if (valid) {
             List<FavoritesDto> favDtoList = convertRowsToDto(rowsList);
             model.saveFavRides(favDtoList);
-            refreshFavorites();
+            if (mainViewController.getInNl()) {
+                refreshNlFavorites();
+            } else {
+                refreshFavorites();
+            }
         }
     }
 
@@ -333,5 +374,27 @@ public class Presentation implements Observer {
             searchRidesTabSearcher(dto);
         });
         saveTab.addFavoriteRideEmptyRow(favTabRow);
+    }
+
+    public void setNlStations() {
+        mainViewController.setNlBoolean(true);
+        refreshNlFavorites();
+
+        StationsDto origin = searchTab.getOrigin();
+        StationsDto destination = searchTab.getDestination();
+        List<StationsDto> stat = model.getAllNlStations();
+        searchTab.setSearchableComboBoxes(stat);
+        searchTab.setCustomComboBoxes(origin, destination);
+
+        List<StationsDto> dtosSearched = shortestPathController.getStationsDtoInSearch();
+        shortestPathController.clearTable();
+        dtosSearched.forEach((s) -> {
+            stat.forEach((nl) -> {
+                if (s.equals(nl)) {
+                    nl.setLines(s.getLines());
+                    shortestPathController.addToTable(nl);
+                }
+            });
+        });
     }
 }

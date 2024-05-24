@@ -1,6 +1,7 @@
 package mvp.model;
 import mvp.exceptions.database.FavoritesTableUKViolation;
 import mvp.model.db.repository.FavoritesRepository;
+import mvp.model.db.repository.StationsNlRepository;
 import mvp.model.db.repository.StationsRepository;
 import mvp.model.db.repository.StopsRepository;
 import mvp.model.util.ModelEvent;
@@ -22,6 +23,7 @@ public class Model implements Observable {
     private final StopsRepository stopsRepository;
     private final StationsRepository stationsRepository;
     private final FavoritesRepository favRepository;
+    private final StationsNlRepository stationsNlRepository;
     private Dijkstra d;
 
     public Model() {
@@ -29,6 +31,7 @@ public class Model implements Observable {
         stopsRepository = new StopsRepository();
         stationsRepository = new StationsRepository();
         favRepository = new FavoritesRepository();
+        stationsNlRepository = new StationsNlRepository();
     }
 
     /**
@@ -107,6 +110,7 @@ public class Model implements Observable {
 
         d = new Dijkstra(allNodes, start, end);
         d.calculate();
+        System.out.println(d.getShortestPath());
         notifyObservers(new ModelUpdate(ModelEvent.SHORTEST_PATH_CALCULATED));
     }
 
@@ -224,5 +228,9 @@ public class Model implements Observable {
                 });
             });
         });
+    }
+
+    public List<StationsDto> getAllNlStations() {
+        return stationsNlRepository.getAll();
     }
 }

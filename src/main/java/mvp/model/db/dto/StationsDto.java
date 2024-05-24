@@ -25,7 +25,7 @@ public class StationsDto extends StationsPK {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         StationsDto that = (StationsDto) o;
-        return Objects.equals(name, that.name);
+        return Objects.equals(getIdStation(), that.getIdStation());
     }
 
     @Override

@@ -64,8 +64,13 @@ public class SearchTabController implements Initializable {
     }
 
     public void setSearchableComboBoxes(List<StationsDto> list) {
-        choiceDestination.setItems(FXCollections.observableList(list));
-        choiceOrigin.setItems(FXCollections.observableList(list));
+        choiceDestination.getItems().setAll(list);
+        choiceOrigin.getItems().setAll(list);
+    }
+
+    public void setCustomComboBoxes(StationsDto origin, StationsDto destination) {
+        choiceOrigin.setValue(origin);
+        choiceDestination.setValue(destination);
     }
 
     private void initLogo() {

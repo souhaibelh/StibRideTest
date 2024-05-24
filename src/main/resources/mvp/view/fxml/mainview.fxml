@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -10,8 +13,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="503.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="1014.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
+      <MenuBar>
+         <menus>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem fx:id="nlStations" mnemonicParsing="false" text="Stations en neerlandais" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
       <ScrollPane fx:id="scrollPane" prefHeight="222.0" prefWidth="797.0">
         <content>
           <AnchorPane fx:id="planMetroContainer" minHeight="0.0" minWidth="0.0" prefHeight="220.0" prefWidth="998.0">
@@ -38,23 +50,23 @@
                   <fx:include fx:id="shortestPath" source="shortestPathView.fxml" />
                </children>
             </HBox>
-            <HBox prefHeight="21.0" prefWidth="797.0">
+         </children>
+      </VBox>
+      <HBox alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="1014.0">
+         <children>
+            <Label fx:id="searchFinalised" prefHeight="17.0" prefWidth="112.0" text="Recherche termine" />
+            <HBox alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="777.0">
                <children>
-                  <Label fx:id="searchFinalised" prefHeight="17.0" prefWidth="112.0" text="Recherche termine" />
-                  <HBox alignment="CENTER" prefHeight="17.0" prefWidth="777.0">
-                     <children>
-                        <Text fx:id="updateMessage" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
-                     </children>
-                  </HBox>
-                  <HBox fx:id="numberOfStationsContainer" alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="140.0">
-                     <children>
-                        <Label text="Nombre de stations:" />
-                        <Text fx:id="numberOfStations" nodeOrientation="RIGHT_TO_LEFT" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="21.0" />
-                     </children>
-                  </HBox>
+                  <Text fx:id="updateMessage" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" />
+               </children>
+            </HBox>
+            <HBox fx:id="numberOfStationsContainer" alignment="BOTTOM_CENTER" prefHeight="17.0" prefWidth="140.0">
+               <children>
+                  <Label text="Nombre de stations:" />
+                  <Text fx:id="numberOfStations" nodeOrientation="RIGHT_TO_LEFT" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="21.0" />
                </children>
             </HBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </VBox>

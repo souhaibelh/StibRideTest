@@ -39,13 +39,13 @@ public class FavoriteTableRow {
         StationsDto origin = favDto.getOrigin();
         StationsDto destination = favDto.getDestination();
         org.getItems().forEach((s) -> {
-            if (s.getName().equals(origin.getName())) {
+            if (s.equals(origin)) {
                 org.setValue(s);
             }
         });
 
         dst.getItems().forEach((d) -> {
-            if (d.getName().equals(destination.getName())) {
+            if (d.equals(destination)) {
                 dst.setValue(d);
             }
         });
