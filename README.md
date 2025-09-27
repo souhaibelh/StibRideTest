@@ -1,92 +1,88 @@
-# StibRide
+# Stib Ride
+A JavaFX app to find the shortest metro route using Dijkstra’s algorithm.
 
+## Table of Contents
+- [About](#about)
+- [Screenshot](#screenshot)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage / Examples](#usage--examples)
+  - [Search Rides](#search-rides)
+  - [Saved Rides](#saved-rides)
+  - [Edit Menu](#edit-menu)
 
+## About
+StibRide is a JavaFX application that calculates the shortest path between two metro stations using Dijkstra’s algorithm. The app provides a simple GUI to select origin and destination stations, visualize the path, and manage saved locations for quick access.
 
-## Getting started
+## Screenshot
+<p align="center">
+  <img src="assets/main-screenshot.png" alt="Stib Ride GUI"/>
+</p>
+<p align="center">
+    <em>Main GUI showing metro map, origin/destination selection, and saved rides</em>
+</p>
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Features
+- **Shortest Path Calculation**
+  - Uses Dijkstra's algorithm to compute the optimal route between two stations. 
+  - Displays the path on the GUI.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- **Station Management**
+  - Save frequently used stations (e.g., Home, Work).
+  - Rename, update, or delete saved stations.
 
-## Add your files
+- **Interactive GUI**
+  - Select origin and destination via dropdown menus.
+  - Switch between "Search Rides" and "Saved Rides" tabs.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+- **Dataset Switching**
+  - Toggle between FR/NL metro stations languages via the Edit button
 
-```
-cd existing_repo
-git remote add origin https://git.esi-bru.be/61610/stibride.git
-git branch -M main
-git push -uf origin main
-```
+## Tech Stack
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java"/>
+  <img src="https://img.shields.io/badge/JavaFX-3874A3?style=for-the-badge&logo=java&logoColor=white" alt="JavaFX"/>
+  <img src="https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="SQL"/>
+  <img src="https://img.shields.io/badge/JUnit-25A162?style=for-the-badge&logo=junit5&logoColor=white" alt="JUnit"/>
+</p>
 
-## Integrate with your tools
+## Getting Started
 
-- [ ] [Set up project integrations](https://git.esi-bru.be/61610/stibride/-/settings/integrations)
+### Prerequisites
+Make sure you have the following installed on your system:
 
-## Collaborate with your team
+- **Java JDK 19** – required since the project is compiled with Java 19 [Download here](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html?utm_source=chatgpt.com)
+- **Apache Maven** [Download here](https://maven.apache.org/download.cgi)
+- **Git**
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### Installation
+- Clone the project: ```git clone https://github.com/souhaibelh/Stib-Ride.git```
+- Open the project's root folder: ```cd Stib-Ride```
+- Compile the project with maven: ```mvn compile```
+- Run ```mvn javafx:run```
 
-## Test and Deploy
+### Usage / Examples
+- When you open the app, you will see **two tabs**:
+    - **Search Rides**
+    - **Saved Rides**
 
-Use the built-in continuous integration in GitLab.
+#### Search Rides
+- Choose an **origin** and a **destination** station.
+- Click **search** to calculate the shortest path (using Dijkstra's algorithm)
+- The result is displayed in the **table on the right**, showing the stations and metro lines required (e.g., *Maelbeek → Line 1,5*).
+- Click **Save** to store the rider under a custom name.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+#### Saved Rides
+- View all your saved rides.
+- For each ride, you can:
+    - **Recalculate** the shortest path (useful if you change destination or origin)
+    - **Rename** the ride
+    - **Change origin/destination** and save the changes
+    - **Delete** the ride
+- You can also **bulk edit** multiple rides at once.
 
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+#### Edit Menu
+- On the **top-left corner**, click **Edit** and then click **Stations en neerlandais** to display the station names in Dutch
