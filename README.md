@@ -75,6 +75,13 @@ Make sure you have the following installed on your system:
 - The result is displayed in the **table on the right**, showing the stations and metro lines required (e.g., *Maelbeek → Line 1,5*).
 - Click **Save** to store the rider under a custom name.
 
+<p align="center">
+  <img src="assets/search-screenshot.png" width="600"/><br/>
+</p>
+<p align="center">
+  <em>Search tab showing the shortest path from origin to destination</em>
+</p>
+
 #### Saved Rides
 - View all your saved rides.
 - For each ride, you can:
@@ -84,5 +91,19 @@ Make sure you have the following installed on your system:
     - **Delete** the ride
 - You can also **bulk edit** multiple rides at once.
 
+<p align="center">
+  <img src="assets/saved-screenshot.png" width="600"/><br/>
+</p>
+<p align="center">
+  <em>Saved rides tab with options to recalculate, rename, edit, or delete one or multiple rides</em>
+</p>
+
 #### Edit Menu
 - On the **top-left corner**, click **Edit** and then click **Stations en neerlandais** to display the station names in Dutch
+
+<p align="center">
+  <img src="assets/edit-screenshot.png" width="600"/><br/>
+</p>
+<p align="center">
+  <em>Edit menu switching station names to Dutch</em>
+</p>
